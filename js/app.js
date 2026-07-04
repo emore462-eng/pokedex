@@ -73,7 +73,6 @@ buscador.addEventListener("input", function () {
 // ============================================================
 // HU3 — Función adaptadora: estructura API → forma limpia
 // ============================================================
-<<<<<<< HEAD
 function adaptarPokemon(data) {
   return {
     nombre: data.name,
@@ -135,6 +134,3 @@ Promise.all(promesas)
       </p>
     `;
   });
-=======
-render(pokemonAmpliada);
->>>>>>> fe70edb1baa8d322524232d1a124bf236782c719
