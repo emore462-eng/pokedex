@@ -22,37 +22,29 @@ const colorPorTipo = {
   normal:   "bg-slate-200 text-slate-700",
   fairy:    "bg-pink-200 text-pink-800",
   ghost:    "bg-indigo-200 text-indigo-800",
-  // valor por defecto para tipos no listados
   default:  "bg-slate-200 text-slate-700"
 };
 
 // ============================================================
-// Se creo una Tarjeta (con destructuring, map)
+// Crear una tarjeta (destructuring, map, optional chaining)
 // + LOGRO 1 (colores por tipo)
 // + LOGRO 3 (destructuring de array para tipo principal)
 // ============================================================
 function crearTarjeta(pokemon) {
-  // HU3 — Destructuring de objeto
   const { nombre, imagen, tipos } = pokemon;
 
-  // HU3 — Acceso seguro: imagen de respaldo si falta
   const img = imagen ?? "https://via.placeholder.com/96?text=?";
-
-  // HU3 — Cantidad segura de tipos (por si 'tipos' no existiera)
   const cantidadTipos = tipos?.length ?? 0;
 
-  // LOGRO 3 — Destructuring de array: tipo principal
   const [principal] = tipos ?? ["???"];
 
-  // HU3 + LOGRO 1 — Badges con color según tipo
   const badges = tipos
     .map(function (tipo) {
       const claseColor = colorPorTipo[tipo] ?? colorPorTipo.default;
-      return <span class="text-xs ${claseColor} px-2 py-1 rounded-full">${tipo}</span>;
+      return `<span class="text-xs ${claseColor} px-2 py-1 rounded-full">${tipo}</span>`;
     })
     .join("");
 
-  // HU2 — Patrón render: crear nodo y asignar innerHTML
   const articulo = document.createElement("article");
   articulo.className = "bg-white rounded-xl shadow p-4 text-center";
   articulo.innerHTML = `
@@ -71,16 +63,15 @@ function crearTarjeta(pokemon) {
 const contenedor = document.getElementById("resultado");
 
 function render(lista) {
-  contenedor.innerHTML = "";                   // 1. limpia lo anterior
+  contenedor.innerHTML = "";
   lista.forEach(function (pokemon) {
-    const tarjeta = crearTarjeta(pokemon);     // 2. crea el nodo
-    contenedor.appendChild(tarjeta);           // 3. lo inserta en el DOM
+    const tarjeta = crearTarjeta(pokemon);
+    contenedor.appendChild(tarjeta);
   });
 }
 
 // ============================================================
-// LOGRO 2 — Spread e inmutabilidad: agregar un Pokémon nuevo
-// sin mutar el array original
+// LOGRO 2 — Spread e inmutabilidad
 // ============================================================
 const pokemonNuevo = {
   nombre: "eevee",
@@ -88,10 +79,10 @@ const pokemonNuevo = {
   tipos: ["normal"]
 };
 
-const pokemonAmpliada = [...pokemonLocal, pokemonNuevo]; // spread
+const pokemonAmpliada = [...pokemonLocal, pokemonNuevo];
 
 // ============================================================
-// Filtrado en vivo con el buscador
+// HU4 — Filtrado en vivo con el buscador
 // ============================================================
 const buscador = document.getElementById("buscador");
 
