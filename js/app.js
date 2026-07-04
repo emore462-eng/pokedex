@@ -134,5 +134,3 @@ Promise.all(promesas)
       </p>
     `;
   });
-
-
